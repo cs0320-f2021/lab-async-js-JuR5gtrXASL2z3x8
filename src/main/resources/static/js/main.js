@@ -28,22 +28,22 @@ input.addEventListener("keyup", () => {
   //TODO: make a post request to the url to handle this request you set in your Main.java
   //HINT: check out the GET, POST, and JSON section of the lab
 
-   fetch('/results', {
-    method: 'post',
-    body: JSON.stringify(postParameters),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-  })
-      .then(response => {
-        console.log(response.status)
-        return response.json()
-      })
-      .then((data) => console.log(data));
+    const response = fetch('/result', {
+        method: 'post',
+        body: JSON.stringify(postParameters),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
 
 
   //TODO: Parse the JSON in the response object
   //HINT: remember to get the specific field in the JSON you want to use
+
+    const suggestions = JSON.parse(response['text'])
+
 
   //TODO: for each element in the set of results, append it to the suggestionList
   //HINT: use innerHTML += to append to teh suggestions list
@@ -51,10 +51,17 @@ input.addEventListener("keyup", () => {
   // make sure to add the attribute 'tabindex="0"' (for example: <li tabindex="0">{your element}</li>).
   // This makes each element selectable via screen reader.
 
+    Object.values(suggestions).map((suggestion) => {
+        suggestionList.innerHTML += <li tabIndex={0}>${suggestion}</li>
+    })
+
 
   //TODO: add an click handler to each of the elements you added to the suggestionList
   // with a function which will replace whatever is in input with the suggestion that
   // was clicked
 
+    suggestionList.addEventListener("click", () => input.value = suggestionList.innerHTML)
+
   //TODO: hide the loading text
+    loading.style.display = "none"
 });
