@@ -174,8 +174,8 @@ public final class Main {
 
             //TODO: create an immutable map using the suggestions
 
-          Map<String, String>
-              variables = ImmutableMap.of("suggestions", suggestions.toString());
+          Map<String, Set<String>>
+              variables = ImmutableMap.of("suggestions", suggestions);
 
             //TODO: return a Json of the suggestions (HINT: use the GSON.Json())
 
