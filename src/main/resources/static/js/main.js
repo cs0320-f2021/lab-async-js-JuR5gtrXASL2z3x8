@@ -42,12 +42,17 @@ input.forEach((input) => input.addEventListener("keyup", () => {
             let id = 0
             for (let result of results) {
                 suggestionList.innerHTML += `<li tabIndex="0" id=${id.toString()}>${result}</li>`
-                document.getElementById(id.toString()).addEventListener("click",
-                    () => input.value = result)
+
+                for (let i = 0; i <= id; i++) {
+                    document.getElementById(i.toString()).addEventListener("click",
+                        () => {
+                            input.value = document.getElementById(i.toString()).textContent
+                    })
+                }
+
                 id += 1
             }
         })
-
 
   //TODO: Parse the JSON in the response object
   //HINT: remember to get the specific field in the JSON you want to use
